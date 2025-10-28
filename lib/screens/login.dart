@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sound_life/components/register_modal.dart';
 import 'package:sound_life/services/auth_services.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' show Supabase, AuthApiException;
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,55 +10,29 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final email = TextEditingController();
-  final password = TextEditingController();
-  final authService = AuthServices();
-  bool loading = false;
+  //Controllers
+  final _email = TextEditingController();
+  final _password = TextEditingController();
 
-  void handleLogin() async {
-    if (email.text.isEmpty || password.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Completa todos los campos')),
-      );
-      return;
-    }
+  //servicios de autenticacion
+  final auth = AuthServices();
 
-    setState(() => loading = true);
+  //Login button
+  void login() async {
+    // preparar datos
+    final email = _email.text;
+    final password = _password.text;
 
     try {
-      final response = await Supabase.instance.client.auth.signInWithPassword(
-        email: email.text.trim(),
-        password: password.text.trim(),
-      );
-
-      final user = response.user;
-      final isVerified = user?.emailConfirmedAt != null;
-
-      if (user != null && isVerified) {
+      auth.login(email, password);
+    } catch (e) {
+      if (mounted) {
+        debugPrint('$e');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Bienvenido ${user.email}')),
-        );
-        Navigator.pushReplacementNamed(context, '/home');
-      } else if (user != null && !isVerified) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Verifica tu correo antes de iniciar sesión')),
+          SnackBar(content: Text('Ha ocurrido un error, intenta nuevamente')),
         );
       }
-    } on AuthApiException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.message}')),
-      );
-      showDialog(
-        context: context,
-        builder: (_) => const RegisterModal(),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error inesperado: ${e.toString()}')),
-      );
     }
-
-    setState(() => loading = false);
   }
 
   @override
@@ -84,9 +57,12 @@ class _LoginState extends State<Login> {
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: TextField(
-                  controller: email,
+                  controller: _email,
                   decoration: const InputDecoration(
                     labelText: 'Correo',
                     border: OutlineInputBorder(),
@@ -94,9 +70,12 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: TextField(
-                  controller: password,
+                  controller: _password,
                   obscureText: true,
                   decoration: const InputDecoration(
                     labelText: 'Contraseña',
@@ -105,24 +84,22 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: SizedBox(
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: const WidgetStatePropertyAll(Colors.blueAccent),
-                      foregroundColor: const WidgetStatePropertyAll(Colors.white),
+                      backgroundColor: const WidgetStatePropertyAll(
+                        Colors.blueAccent,
+                      ),
+                      foregroundColor: const WidgetStatePropertyAll(
+                        Colors.white,
+                      ),
                     ),
-                    onPressed: handleLogin,
-                    child: loading
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
-                          )
-                        : const Text('Iniciar Sesión'),
+                    onPressed: () {},
+                    child: Text('hello'),
                   ),
                 ),
               ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sound_life/components/register_modal.dart';
 import 'package:sound_life/screens/home.dart';
 import 'package:sound_life/screens/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -21,37 +20,13 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  @override
-  void initState() {
-    checkSession(context);
-    super.initState();
-  }
 
-  void checkSession(BuildContext context) {
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    final session = Supabase.instance.client.auth.currentSession;
-    final user = session?.user;
-
-    if (user != null && user.emailConfirmedAt != null) {
-      Navigator.pushReplacementNamed(context, '/home'); // Ruta corregida
-    } else {
-      showDialog(
-        context: context,
-        builder: (_) => const RegisterModal(),
-      );
-    }
-  });
-}
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sound Life',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Login(),
-        '/home': (context) => const Home(),
-      },
+      home: Home(),
     );
   }
 }
