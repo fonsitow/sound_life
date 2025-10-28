@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sound_life/screens/home.dart';
-import 'package:sound_life/screens/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {

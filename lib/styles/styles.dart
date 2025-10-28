@@ -6,6 +6,10 @@ class CustomStyles {
     fontFamily: 'KiwiSoda',
     fontSize: 16
   );
+  TextStyle textoGrande = TextStyle(
+    fontFamily: 'KiwiSoda',
+    fontSize: 32
+  );
   TextStyle textoTitulo = TextStyle(
     fontFamily: 'KiwiSoda',
     fontSize: 24,
