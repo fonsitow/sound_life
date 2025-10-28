@@ -37,6 +37,10 @@ class AuthServices {
   String? emailUser () {
     final session = _client.auth.currentSession;
     final user = session?.user;
-    return user?.email;
+    if(user != null){
+    return user.email;
+    }else{
+      return 'Usuario Invitado';
+    }
   }
 }

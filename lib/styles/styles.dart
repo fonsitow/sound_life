@@ -4,7 +4,7 @@ class CustomStyles {
   //Styles text
   TextStyle textoSimple = TextStyle(
     fontFamily: 'KiwiSoda',
-    fontSize: 16
+    fontSize: 14
   );
   TextStyle textoGrande = TextStyle(
     fontFamily: 'KiwiSoda',
