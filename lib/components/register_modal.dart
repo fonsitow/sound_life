@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sound_life/components/verificacion_modal.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show Supabase;
 
 class RegisterModal extends StatefulWidget {
@@ -34,11 +33,6 @@ class _RegisterModalState extends State<RegisterModal> {
     setState(() => loading = false);
 
     if (response.user != null) {
-      Navigator.pop(context); // Cierra modal
-      showDialog(
-        context: context,
-        builder: (_) => const VerificationModal(),
-      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('No se pudo registrar')),

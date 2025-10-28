@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sound_life/components/register_modal.dart';
-import 'package:sound_life/screens/dashboard.dart';
+import 'package:sound_life/screens/home.dart';
 import 'package:sound_life/screens/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -33,7 +33,7 @@ class _MainAppState extends State<MainApp> {
     final user = session?.user;
 
     if (user != null && user.emailConfirmedAt != null) {
-      Navigator.pushReplacementNamed(context, '/dashboard'); // Ruta corregida
+      Navigator.pushReplacementNamed(context, '/home'); // Ruta corregida
     } else {
       showDialog(
         context: context,
@@ -50,7 +50,7 @@ class _MainAppState extends State<MainApp> {
       initialRoute: '/',
       routes: {
         '/': (context) => const Login(),
-        '/dashboard': (context) => const Dashboard(),
+        '/home': (context) => const Home(),
       },
     );
   }

@@ -39,7 +39,7 @@ class _LoginState extends State<Login> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Bienvenido ${user.email}')),
         );
-        Navigator.pushReplacementNamed(context, '/dashboard');
+        Navigator.pushReplacementNamed(context, '/home');
       } else if (user != null && !isVerified) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Verifica tu correo antes de iniciar sesión')),

@@ -9,31 +9,9 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List<Widget> screens = [];
-  final index = screens.length;
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Song Life')),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          index++;
-        },
-        selectedItemColor: Colors.purple,
-        currentIndex: index,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person_2), label: 'Profile'),
-        ],
-      ),
-      body: Column(),
-    );
+    return Scaffold(body: Column());
   }
 }
